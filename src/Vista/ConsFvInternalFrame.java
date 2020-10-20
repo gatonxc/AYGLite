@@ -126,7 +126,7 @@ public class ConsFvInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addGap(27, 27, 27)
                 .addComponent(btn_cerrar)
-                .addGap(49, 49, 49))
+                .addContainerGap())
         );
 
         pack();

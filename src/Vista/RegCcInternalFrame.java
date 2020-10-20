@@ -1,5 +1,7 @@
 package Vista;
 
+import Modelo.GestorRellenar;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,13 +11,29 @@ import javax.swing.JOptionPane;
 public class RegCcInternalFrame extends javax.swing.JInternalFrame {
 
     private Controlador.CcControl ccControlador;
+    Modelo.GestorRellenar rellenarModelo;
+    
     
     public RegCcInternalFrame() {
         initComponents();
         ccControlador=new Controlador.CcControl(this);
+        rellenarModelo=new Modelo.GestorRellenar();
         RegistrarBtn.addActionListener(ccControlador);
         NuevoBtn.addActionListener(ccControlador);
         CerrarBtn.addActionListener(ccControlador);
+        jcb_proveedor.removeAllItems();
+        ArrayList<String> proveedor= new ArrayList<String>();
+        proveedor=GestorRellenar.llenar_proveedor();
+        for (int i=0; i<proveedor.size();i++){
+            jcb_proveedor.addItem(proveedor.get(i));
+        }
+        jcb_factura.removeAllItems();
+        ArrayList<String> factura= new ArrayList<String>();
+        factura=GestorRellenar.llenar_facturas();
+        for (int i=0; i<factura.size();i++){
+            jcb_factura.addItem(factura.get(i));
+        }
+        jcb_proveedor.addItemListener(ccControlador);
     }
 
     /**
@@ -36,12 +54,14 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
         RegistrarBtn = new javax.swing.JButton();
         NuevoBtn = new javax.swing.JButton();
         CerrarBtn = new javax.swing.JButton();
-        txt_proveedor = new javax.swing.JTextField();
-        txt_factura = new javax.swing.JTextField();
         txt_descripcion = new javax.swing.JTextField();
         txt_subtotal = new javax.swing.JTextField();
         txt_impuesto = new javax.swing.JTextField();
         txt_total = new javax.swing.JTextField();
+        jcb_proveedor = new javax.swing.JComboBox<>();
+        jcb_factura = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        lbl_proveedor = new javax.swing.JLabel();
 
         setTitle("Registrar Cuenta de Cobro");
 
@@ -63,18 +83,6 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
 
         CerrarBtn.setText("Cerrar");
 
-        txt_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_proveedorKeyTyped(evt);
-            }
-        });
-
-        txt_factura.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_facturaKeyTyped(evt);
-            }
-        });
-
         txt_subtotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_subtotalKeyTyped(evt);
@@ -93,6 +101,12 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jcb_proveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jcb_factura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Nombre Proveedor:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,32 +120,38 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcb_proveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(NuevoBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                         .addComponent(CerrarBtn))
-                    .addComponent(txt_proveedor)
-                    .addComponent(txt_factura)
                     .addComponent(txt_descripcion)
                     .addComponent(txt_subtotal)
                     .addComponent(txt_impuesto)
-                    .addComponent(txt_total))
+                    .addComponent(txt_total)
+                    .addComponent(jcb_factura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcb_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbl_proveedor))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txt_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcb_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -153,33 +173,11 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(RegistrarBtn)
                     .addComponent(NuevoBtn)
                     .addComponent(CerrarBtn))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_proveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_proveedorKeyTyped
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane,"Ingrese solo numeros");
-        }
-    }//GEN-LAST:event_txt_proveedorKeyTyped
-
-    private void txt_facturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_facturaKeyTyped
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane,"Ingrese solo numeros");
-        }
-    }//GEN-LAST:event_txt_facturaKeyTyped
 
     private void txt_subtotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_subtotalKeyTyped
         char validar=evt.getKeyChar();
@@ -219,16 +217,18 @@ public class RegCcInternalFrame extends javax.swing.JInternalFrame {
     public javax.swing.JButton CerrarBtn;
     public javax.swing.JButton NuevoBtn;
     public javax.swing.JButton RegistrarBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    public javax.swing.JComboBox<String> jcb_factura;
+    public javax.swing.JComboBox<String> jcb_proveedor;
+    public javax.swing.JLabel lbl_proveedor;
     public javax.swing.JTextField txt_descripcion;
-    public javax.swing.JTextField txt_factura;
     public javax.swing.JTextField txt_impuesto;
-    public javax.swing.JTextField txt_proveedor;
     public javax.swing.JTextField txt_subtotal;
     public javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables

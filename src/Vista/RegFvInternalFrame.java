@@ -1,5 +1,7 @@
 package Vista;
 
+import Modelo.GestorRellenar;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,13 +11,29 @@ import javax.swing.JOptionPane;
 public class RegFvInternalFrame extends javax.swing.JInternalFrame {
 
     private Controlador.FvControl fvControlador;
+    Modelo.GestorRellenar rellenarModelo;
     
     public RegFvInternalFrame() {
         initComponents();
         fvControlador=new Controlador.FvControl(this);
+        rellenarModelo=new Modelo.GestorRellenar();
         RegistrarBtn.addActionListener(fvControlador);
         NuevoBtn.addActionListener(fvControlador);
         CerrarBtn.addActionListener(fvControlador);
+        jcb_paciente.removeAllItems();
+        ArrayList<String> paciente= new ArrayList<String>();
+        paciente=GestorRellenar.llenar_paciente();
+        for (int i=0; i<paciente.size();i++){
+            jcb_paciente.addItem(paciente.get(i));
+        }
+        jcb_cup.removeAllItems();
+        ArrayList<String> cup= new ArrayList<String>();
+        cup=GestorRellenar.llenar_cup();
+        for (int i=0; i<cup.size();i++){
+            jcb_cup.addItem(cup.get(i));
+        }
+        jcb_paciente.addItemListener(fvControlador);
+        jcb_cup.addItemListener(fvControlador);
     }
 
     /**
@@ -29,7 +47,6 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
 
         NuevoBtn = new javax.swing.JButton();
         CerrarBtn = new javax.swing.JButton();
-        txt_paciente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txt_descripcion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -41,19 +58,18 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         RegistrarBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        txt_cup = new javax.swing.JTextField();
+        jcb_paciente = new javax.swing.JComboBox<>();
+        jcb_cup = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        lbl_paciente = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lbl_cup = new javax.swing.JLabel();
 
         setTitle("Registrar Factura de Venta");
 
         NuevoBtn.setText("Nuevo");
 
         CerrarBtn.setText("Cerrar");
-
-        txt_paciente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_pacienteKeyTyped(evt);
-            }
-        });
 
         jLabel3.setText("Id Paciente:");
 
@@ -87,11 +103,13 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Id Cup:");
 
-        txt_cup.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_cupKeyTyped(evt);
-            }
-        });
+        jcb_paciente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jcb_cup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Nombre Paciente:");
+
+        jLabel2.setText("Nombre Cup:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,33 +124,48 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel2))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_cup)
+                    .addComponent(jcb_cup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(NuevoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                         .addComponent(CerrarBtn))
-                    .addComponent(txt_paciente)
                     .addComponent(txt_descripcion)
                     .addComponent(txt_subtotal)
                     .addComponent(txt_impuesto)
-                    .addComponent(txt_total))
+                    .addComponent(txt_total)
+                    .addComponent(jcb_paciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_paciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_cup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jcb_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jcb_cup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_paciente)
+                        .addGap(38, 38, 38)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txt_cup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(lbl_cup))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -154,33 +187,11 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(RegistrarBtn)
                     .addComponent(NuevoBtn)
                     .addComponent(CerrarBtn))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_pacienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pacienteKeyTyped
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane,"Ingrese solo numeros");
-        }
-    }//GEN-LAST:event_txt_pacienteKeyTyped
-
-    private void txt_cupKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cupKeyTyped
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane,"Ingrese solo numeros");
-        }
-    }//GEN-LAST:event_txt_cupKeyTyped
 
     private void txt_subtotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_subtotalKeyTyped
         char validar=evt.getKeyChar();
@@ -220,16 +231,20 @@ public class RegFvInternalFrame extends javax.swing.JInternalFrame {
     public javax.swing.JButton CerrarBtn;
     public javax.swing.JButton NuevoBtn;
     public javax.swing.JButton RegistrarBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    public javax.swing.JTextField txt_cup;
+    public javax.swing.JComboBox<String> jcb_cup;
+    public javax.swing.JComboBox<String> jcb_paciente;
+    public javax.swing.JLabel lbl_cup;
+    public javax.swing.JLabel lbl_paciente;
     public javax.swing.JTextField txt_descripcion;
     public javax.swing.JTextField txt_impuesto;
-    public javax.swing.JTextField txt_paciente;
     public javax.swing.JTextField txt_subtotal;
     public javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables

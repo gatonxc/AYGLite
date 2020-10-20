@@ -1,18 +1,29 @@
 package Vista;
 
+import Modelo.GestorRellenar;
+import java.util.ArrayList;
+
 /**
  *
  * @author Julian Gato
  */
-public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
+public class RegApInternalFrame extends javax.swing.JInternalFrame {
 
     public Controlador.ApControl apControlador;
+    Modelo.GestorRellenar rellenarModelo;
     
-    public ArchPlanoInternalFrame() {
+    public RegApInternalFrame() {
         initComponents();
         apControlador= new Controlador.ApControl(this);
+        rellenarModelo=new Modelo.GestorRellenar();
         ExportarBtn.addActionListener(apControlador);
         CerrarBtn.addActionListener(apControlador);
+        jcb_factura.removeAllItems();
+        ArrayList<String> factura= new ArrayList<String>();
+        factura=GestorRellenar.llenar_facturas();
+        for (int i=0; i<factura.size();i++){
+            jcb_factura.addItem(factura.get(i));
+        }
     }
 
     /**
@@ -30,8 +41,10 @@ public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
         txt_credito = new javax.swing.JTextField();
         ExportarBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txt_factura = new javax.swing.JTextField();
         CerrarBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txt_impuesto = new javax.swing.JTextField();
+        jcb_factura = new javax.swing.JComboBox<>();
 
         setTitle("Exportar");
 
@@ -40,15 +53,14 @@ public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
         jLabel2.setText("Cuenta Credito:");
 
         ExportarBtn.setText("Exportar");
-        ExportarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExportarBtnActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Factura:");
 
         CerrarBtn.setText("Cerrar");
+
+        jLabel4.setText("Cuenta Impuesto:");
+
+        jcb_factura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,35 +74,39 @@ public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CerrarBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(56, 56, 56)
-                        .addComponent(txt_credito, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_debito)
-                            .addComponent(txt_factura, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                            .addComponent(txt_credito, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(txt_debito, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(txt_impuesto)
+                            .addComponent(jcb_factura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcb_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_debito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(txt_debito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txt_impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_credito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ExportarBtn)
                     .addComponent(CerrarBtn))
@@ -100,10 +116,6 @@ public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ExportarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarBtnActionPerformed
-        
-    }//GEN-LAST:event_ExportarBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton CerrarBtn;
@@ -111,8 +123,10 @@ public class ArchPlanoInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    public javax.swing.JComboBox<String> jcb_factura;
     public javax.swing.JTextField txt_credito;
     public javax.swing.JTextField txt_debito;
-    public javax.swing.JTextField txt_factura;
+    public javax.swing.JTextField txt_impuesto;
     // End of variables declaration//GEN-END:variables
 }

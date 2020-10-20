@@ -17,7 +17,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     ConsCcInternalFrame consCcInternalFrame;
     RegFvInternalFrame regFvInternalFrame;
     ConsFvInternalFrame consFvInternalFrame;
-    ArchPlanoInternalFrame archplanoInternalFrame;
+    RegApInternalFrame archplanoInternalFrame;
     
     public PrincipalJFrame() {
         regPacienteInternalFrame=new RegpacienteInternalFrame();
@@ -30,7 +30,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         consCcInternalFrame=new ConsCcInternalFrame();
         regFvInternalFrame=new RegFvInternalFrame();
         consFvInternalFrame=new ConsFvInternalFrame();
-        archplanoInternalFrame=new ArchPlanoInternalFrame();
+        archplanoInternalFrame=new RegApInternalFrame();
         add(regPacienteInternalFrame);
         add(consPacienteInternalFrame);
         add(regCupsInternalFrame);

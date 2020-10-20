@@ -27,7 +27,6 @@ public class GestorCc {
  public GestorCc(){
   Recursos.Conexion conexion=new Recursos.Conexion("Localhost", "endocare", "root", "9109");
   conn=conexion.getConexion();  
- 
  }
  
  public void RegistrarCc(Cc cc){
@@ -85,5 +84,5 @@ try {
  }
  return resultado;
 }
-    
+     
 }
