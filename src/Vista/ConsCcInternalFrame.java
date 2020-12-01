@@ -57,6 +57,7 @@ public class ConsCcInternalFrame extends javax.swing.JInternalFrame {
         jLabel1.setText("Valor a buscar:");
 
         btn_buscar.setText("Buscar");
+        btn_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_buscar.setName("Btn_buscar"); // NOI18N
 
         tbl_datos.setModel(new javax.swing.table.DefaultTableModel(
@@ -123,7 +124,7 @@ public class ConsCcInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_cerrar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();

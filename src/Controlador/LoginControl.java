@@ -56,8 +56,4 @@ public class LoginControl implements ActionListener {
      System.exit(0);
  }
  }
- 
- public class Global{
-    
- }
 }
